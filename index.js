@@ -1,11 +1,10 @@
-const TEABAGGING_DELAY = 100
-
-module.exports = function teabagger(dispatch) {
+module.exports = function Teabagger(dispatch) {
 	let cid = null,
 		player = '',
 		interval = null,
 		sitting = false,
-		enabled = false
+		enabled = false,
+		TEABAGGING_DELAY = 100
 
 	dispatch.hook('S_LOGIN', 1, event => {
 		({cid} = event)
@@ -45,18 +44,25 @@ module.exports = function teabagger(dispatch) {
 	// ################# //
 	
 	dispatch.hook('C_WHISPER', 1, (event) => {
+		let cmd = null
 		if(event.target.toUpperCase() === "!teabagger".toUpperCase()) {
 			if (/^<FONT>on?<\/FONT>$/i.test(event.message)) {
 				enabled = true
-				message('Teabagger <font color="#00EE00">enabled</font>.')
+				message('Teabagger <font color="#56B4E9">enabled</font>.')
 			}
 			else if (/^<FONT>off?<\/FONT>$/i.test(event.message)) {
 				enabled = false
 				clearInterval(interval)
-				message('Teabagger <font color="#DC143C">disabled</font>.')
+				message('Teabagger <font color="#E69F00">disabled</font>.')
 			}
-			else message('Commands: "on" (changes normal sit to teabagging),'
-								+ ' "off" (change sit back to normal behavior)'
+			else if (cmd = /^<FONT>delay (.+?)<\/FONT>$/i.exec(event.message)) {
+				TEABAGGING_DELAY = Number(cmd[1])
+				message('Teabagger delay set to <font color="#F0E442">' + TEABAGGING_DELAY + '</font>.')
+			}
+			else message('Commands:<br>'
+								+ ' "on" (changes normal sit to teabagging),<br>'
+								+ ' "off" (change sit back to normal behavior),<br>'
+								+ ' "delay [x]" (change teabagging delay to x, e.g. delay 100)'
 						)
 			return false
 		}
@@ -73,4 +79,26 @@ module.exports = function teabagger(dispatch) {
 			message: msg
 		})
 	}
+	
+	dispatch.hook('C_CHAT', 1, event => {
+		let cmd = null
+		if(/^<FONT>!tbag<\/FONT>$/i.test(event.message)) {
+			if(!enabled) {
+				enabled = true
+				message('Teabagger <font color="#56B4E9">enabled</font>.')
+				console.log('Teabagger enabled.')
+			}
+			else {
+				enabled = false
+				message('Teabagger <font color="#E69F00">disabled</font>.')
+				console.log('Teabagger disabled.')
+			}
+			return false
+		}
+		else if (cmd = /^<FONT>!tbagdelay (.+?)<\/FONT>$/i.exec(event.message)) {
+			TEABAGGING_DELAY = Number(cmd[1])
+			message('Teabagger delay set to <font color="#F0E442">' + TEABAGGING_DELAY + '</font>.')
+			return false
+		}
+	})
 }
