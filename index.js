@@ -4,40 +4,43 @@ module.exports = function Teabagger(dispatch) {
 		interval = null,
 		sitting = false,
 		enabled = false,
-		TEABAGGING_DELAY = 100
+		teabagging = false,
+		TEABAGGING_DELAY = 30	// Teabagging speed
 
 	dispatch.hook('S_LOGIN', 1, event => {
 		({cid} = event)
 		player = event.name
 		enabled = false
 		sitting = false
+		teabagging = false
 		interval = null
 	})
 
 	function teabag() {
-		if(sitting) {
+		if(!enabled) return
+		teabagging = true
+		interval = setInterval(function() {
+			if(sitting) {
 			dispatch.toServer('C_SOCIAL', 1, { emote: 39, unk: 0 })
 			sitting = false
-		}
-		else {
-			dispatch.toServer('C_SOCIAL', 1, { emote: 38, unk: 0 })
-			sitting = true
-		}
+			}
+			else {
+				dispatch.toServer('C_SOCIAL', 1, { emote: 38, unk: 0 })
+				sitting = true
+			}
+		}, TEABAGGING_DELAY)
 	}
 	
 	dispatch.hook('C_SOCIAL', 1, event => { 
-		if(!enabled) return
-		if(event.emote == 38) {
-			clearInterval(interval)
-			interval = setInterval(teabag, TEABAGGING_DELAY)
-		}
+		clearInterval(interval)
+		if(enabled && event.emote == 38 && !teabagging) teabag()
 	})
 	
-	dispatch.hook('C_PLAYER_LOCATION', 1, () => { clearInterval(interval) })
-	dispatch.hook('C_PRESS_SKILL', 1, () => { clearInterval(interval) })
-	dispatch.hook('C_START_SKILL', 1, () => { clearInterval(interval) })
-	dispatch.hook('S_LOAD_TOPO', 1, () => { clearInterval(interval) })
-	dispatch.hook('S_RETURN_TO_LOBBY', 1, () => { clearInterval(interval) })
+	dispatch.hook('C_PLAYER_LOCATION', 1, () => { clearInterval(interval); teabagging = false })
+	dispatch.hook('C_PRESS_SKILL', 1, () => { clearInterval(interval); teabagging = false })
+	dispatch.hook('C_START_SKILL', 1, () => { clearInterval(interval); teabagging = false })
+	dispatch.hook('S_LOAD_TOPO', 1, () => { clearInterval(interval); teabagging = false })
+	dispatch.hook('S_RETURN_TO_LOBBY', 1, () => { clearInterval(interval); teabagging = false })
 	
 	// ################# //
 	// ### Chat Hook ### //
