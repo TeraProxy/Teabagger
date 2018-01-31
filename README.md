@@ -1,6 +1,6 @@
-##### :heavy_exclamation_mark: Elin Gunner Patch Info :heavy_exclamation_mark:
+##### :heavy_exclamation_mark: Patch Info :heavy_exclamation_mark:
 This module should be working with the latest https://github.com/meishuu/tera-data.  
-Please always keep your tera-data up-to-date.   
+Please always keep your tera-data up-to-date. 
 
 # Teabagger  
 A tera-proxy module that lets you teabag people. Why bm?  
