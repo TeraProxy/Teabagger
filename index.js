@@ -1,3 +1,5 @@
+// Version 1.2.1
+
 const Command = require('command')
 
 module.exports = function Teabagger(dispatch) {
@@ -7,7 +9,7 @@ module.exports = function Teabagger(dispatch) {
 		teabagging = false,
 		TEABAGGING_DELAY = 80	// Teabagging delay in ms
 
-	dispatch.hook('S_LOGIN', 2, event => {
+	dispatch.hook('S_SPAWN_ME', 'raw', () => {
 		sitting = false
 		teabagging = false
 		interval = null
@@ -18,11 +20,11 @@ module.exports = function Teabagger(dispatch) {
 		if(enabled && event.emote == 38 && !teabagging) teabag()
 	})
 	
-	dispatch.hook('C_PLAYER_LOCATION', 1, () => { clearInterval(interval); teabagging = false })
-	dispatch.hook('C_PRESS_SKILL', 1, () => { clearInterval(interval); teabagging = false })
-	dispatch.hook('C_START_SKILL', 1, () => { clearInterval(interval); teabagging = false })
-	dispatch.hook('S_LOAD_TOPO', 1, () => { clearInterval(interval); teabagging = false })
-	dispatch.hook('S_RETURN_TO_LOBBY', 1, () => { clearInterval(interval); teabagging = false })
+	dispatch.hook('C_PLAYER_LOCATION', 'raw', () => { clearInterval(interval); teabagging = false })
+	dispatch.hook('C_PRESS_SKILL', 'raw', () => { clearInterval(interval); teabagging = false })
+	dispatch.hook('C_START_SKILL', 'raw', () => { clearInterval(interval); teabagging = false })
+	dispatch.hook('S_LOAD_TOPO', 'raw', () => { clearInterval(interval); teabagging = false })
+	dispatch.hook('S_RETURN_TO_LOBBY', 'raw', () => { clearInterval(interval); teabagging = false })
 	
 	function teabag() {
 		if(!enabled) return
