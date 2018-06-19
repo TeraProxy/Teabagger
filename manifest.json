@@ -1,0 +1,11 @@
+{
+	"files": {
+		"index.js": "3b8c66c3abe8003c0c82cbf6b82074f444ea19914b9587dc23e052510fe548ba",
+		"LICENSE": "589ed823e9a84c56feb95ac58e7cf384626b9cbf4fda2a907bc36e103de1bad2",
+		"module.json": "8f5f17a1384e3084dd2956a3caa09589ca748a3a9ff8820cad751a0fc96ab3f1",
+		"README.md": "2ef0dcbe10ee8cc56ac6dcb9d7306e59d25c2feade41afd40dedfaa507a42953"
+	},
+	"defs": {
+		"C_SOCIAL": 1
+	}
+}

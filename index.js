@@ -1,38 +1,49 @@
-// Version 1.2.1
+// Version 1.2.2
 
-const Command = require('command')
+'use strict'
+
+const Command = require('command'),
+	GameState = require('tera-game-state')
 
 module.exports = function Teabagger(dispatch) {
+	const command = Command(dispatch),
+		game = GameState(dispatch)
+
 	let interval = null,
 		sitting = false,
 		enabled = false,
 		teabagging = false,
-		TEABAGGING_DELAY = 80	// Teabagging delay in ms
+		TEABAGGING_DELAY = 60	// Teabagging delay in ms
 
-	dispatch.hook('S_SPAWN_ME', 'raw', () => {
-		sitting = false
-		teabagging = false
-		interval = null
+	// ############# //
+	// ### Hooks ### //
+	// ############# //
+
+	game.on('enter_loading_screen', () => {
+		stop()
+		sitting = teabagging = false
 	})
-	
+
 	dispatch.hook('C_SOCIAL', 1, event => { 
 		clearInterval(interval)
 		if(enabled && event.emote == 38 && !teabagging) teabag()
 	})
-	
-	dispatch.hook('C_PLAYER_LOCATION', 'raw', () => { clearInterval(interval); teabagging = false })
-	dispatch.hook('C_PRESS_SKILL', 'raw', () => { clearInterval(interval); teabagging = false })
-	dispatch.hook('C_START_SKILL', 'raw', () => { clearInterval(interval); teabagging = false })
-	dispatch.hook('S_LOAD_TOPO', 'raw', () => { clearInterval(interval); teabagging = false })
-	dispatch.hook('S_RETURN_TO_LOBBY', 'raw', () => { clearInterval(interval); teabagging = false })
-	
+
+	dispatch.hook('C_PLAYER_LOCATION', 'raw', stop)
+	dispatch.hook('C_PRESS_SKILL', 'raw', stop)
+	dispatch.hook('C_START_SKILL', 'raw', stop)
+
+	// ################# //
+	// ### Functions ### //
+	// ################# //
+
 	function teabag() {
 		if(!enabled) return
 		teabagging = true
-		interval = setInterval(function() {
+		interval = setInterval(() => {
 			if(sitting) {
-			dispatch.toServer('C_SOCIAL', 1, { emote: 39, unk: 0 })
-			sitting = false
+				dispatch.toServer('C_SOCIAL', 1, { emote: 39, unk: 0 })
+				sitting = false
 			}
 			else {
 				dispatch.toServer('C_SOCIAL', 1, { emote: 38, unk: 0 })
@@ -40,12 +51,16 @@ module.exports = function Teabagger(dispatch) {
 			}
 		}, TEABAGGING_DELAY)
 	}
-	
-	// ################# //
-	// ### Chat Hook ### //
-	// ################# //
-	
-	const command = Command(dispatch)
+
+	function stop() {
+		clearInterval(interval)
+		teabagging = false
+	}
+
+	// ################ //
+	// ### Commands ### //
+	// ################ //
+
 	command.add('tbag', (param) => {
 		if(param == null) {
 			enabled = !enabled
@@ -59,6 +74,6 @@ module.exports = function Teabagger(dispatch) {
 		else command.message('Commands:<br>'
 								+ ' "tbag" (enable/disable Teabagger),<br>'
 								+ ' "tbag [x]" (change teabagging delay to x, e.g. "tbag 100")'
-			)
+		)
 	})
 }
