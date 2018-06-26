@@ -1,11 +1,11 @@
-// Version 1.2.2
+// Version 1.2.3
 
 'use strict'
 
 const Command = require('command'),
 	GameState = require('tera-game-state')
 
-module.exports = function Teabagger(dispatch) {
+module.exports = function teabagger(dispatch) {
 	const command = Command(dispatch),
 		game = GameState(dispatch)
 

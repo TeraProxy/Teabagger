@@ -35,6 +35,9 @@ Any other input, starting with "tbag", will return a summary of above commands i
 Whatever you send to the proxy chat in game is intercepted client-side. The chat is NOT sent to the server.
 
 ## Changelog
+<details>
+### 1.2.3
+* [*] Fixed a weird case-sensitivity issue
 ### 1.2.2
 * [+] Rewrote code to use Caali's "tera-game-state" module in order to reduce overhead
 * [+] Now supports auto-updating via Caali's tera-proxy
@@ -48,3 +51,4 @@ Whatever you send to the proxy chat in game is intercepted client-side. The chat
 * [+] Added !tbagdelay option
 ### 1.0.0
 * [~] Initial Release
+</details>
