@@ -36,6 +36,7 @@ Whatever you send to the proxy chat in game is intercepted client-side. The chat
 
 ## Changelog
 <details>
+
 ### 1.2.3
 * [*] Fixed a weird case-sensitivity issue
 ### 1.2.2
@@ -51,4 +52,5 @@ Whatever you send to the proxy chat in game is intercepted client-side. The chat
 * [+] Added !tbagdelay option
 ### 1.0.0
 * [~] Initial Release
+
 </details>
