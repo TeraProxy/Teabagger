@@ -1,11 +1,14 @@
 {
 	"files": {
-		"index.js": "aa4dbac5bf3054d53fbb7917ad4b7f1a30a5c1882566d2d4ac208fc3c5a78eb1",
 		"LICENSE": "589ed823e9a84c56feb95ac58e7cf384626b9cbf4fda2a907bc36e103de1bad2",
-		"module.json": "8f5f17a1384e3084dd2956a3caa09589ca748a3a9ff8820cad751a0fc96ab3f1",
-		"README.md": "15ae8c8499f9f0fd5ed81d6f5e278e8c9b342fc4215ed5ab3e9fa7b02e8d3be9"
+		"README.md": "1e64e46deb7cef7d5dd699beea8ad1c6a502fd9118a062679e8ec65039823f73",
+		"index.js": "94ca8851291f4ecda37581d9c2065d7d95d34f867970c1ea92d6b79a29f3a42a",
+		"module.json": "459314f811c3d7c9e94a13fd022a14bb163b5bd4ba60397f15233d8a3bd5eab9"
 	},
 	"defs": {
-		"C_SOCIAL": 1
+		"C_PLAYER_LOCATION": "raw",
+		"C_PRESS_SKILL": "raw",
+		"C_SOCIAL": 1,
+		"C_START_SKILL": "raw"
 	}
 }

@@ -1,13 +1,8 @@
-// Version 1.2.3
+// Version 1.2.4
 
 'use strict'
 
-const Command = require('command'),
-	GameState = require('tera-game-state')
-
-module.exports = function teabagger(dispatch) {
-	const command = Command(dispatch),
-		game = GameState(dispatch)
+module.exports = function teabagger(mod) {
 
 	let interval = null,
 		sitting = false,
@@ -19,19 +14,19 @@ module.exports = function teabagger(dispatch) {
 	// ### Hooks ### //
 	// ############# //
 
-	game.on('enter_loading_screen', () => {
+	mod.game.on('enter_loading_screen', () => {
 		stop()
 		sitting = teabagging = false
 	})
 
-	dispatch.hook('C_SOCIAL', 1, event => { 
+	mod.hook('C_SOCIAL', 1, event => { 
 		clearInterval(interval)
 		if(enabled && event.emote == 38 && !teabagging) teabag()
 	})
 
-	dispatch.hook('C_PLAYER_LOCATION', 'raw', stop)
-	dispatch.hook('C_PRESS_SKILL', 'raw', stop)
-	dispatch.hook('C_START_SKILL', 'raw', stop)
+	mod.hook('C_PLAYER_LOCATION', 'raw', stop)
+	mod.hook('C_PRESS_SKILL', 'raw', stop)
+	mod.hook('C_START_SKILL', 'raw', stop)
 
 	// ################# //
 	// ### Functions ### //
@@ -42,11 +37,11 @@ module.exports = function teabagger(dispatch) {
 		teabagging = true
 		interval = setInterval(() => {
 			if(sitting) {
-				dispatch.toServer('C_SOCIAL', 1, { emote: 39, unk: 0 })
+				mod.toServer('C_SOCIAL', 1, { emote: 39, unk: 0 })
 				sitting = false
 			}
 			else {
-				dispatch.toServer('C_SOCIAL', 1, { emote: 38, unk: 0 })
+				mod.toServer('C_SOCIAL', 1, { emote: 38, unk: 0 })
 				sitting = true
 			}
 		}, TEABAGGING_DELAY)
@@ -61,17 +56,17 @@ module.exports = function teabagger(dispatch) {
 	// ### Commands ### //
 	// ################ //
 
-	command.add('tbag', (param) => {
+	mod.command.add('tbag', (param) => {
 		if(param == null) {
 			enabled = !enabled
-			command.message('[Teabagger] ' + (enabled ? '<font color="#56B4E9">enabled</font>' : '<font color="#E69F00">disabled</font>'))
+			mod.command.message((enabled ? '<font color="#56B4E9">enabled</font>' : '<font color="#E69F00">disabled</font>'))
 			console.log('[Teabagger] ' + (enabled ? 'enabled' : 'disabled'))
 		}
 		else if(param != null) {
 			TEABAGGING_DELAY = Number(param)
-			command.message('[Teabagger] delay set to <font color="#F0E442">' + TEABAGGING_DELAY + '</font>.')
+			mod.command.message('delay set to <font color="#F0E442">' + TEABAGGING_DELAY + '</font>.')
 		}
-		else command.message('Commands:<br>'
+		else mod.command.message('Commands:<br>'
 								+ ' "tbag" (enable/disable Teabagger),<br>'
 								+ ' "tbag [x]" (change teabagging delay to x, e.g. "tbag 100")'
 		)
