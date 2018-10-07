@@ -1,4 +1,4 @@
-// Version 1.2.4
+// Version 1.2.5
 
 'use strict'
 
@@ -66,8 +66,8 @@ module.exports = function teabagger(mod) {
 			TEABAGGING_DELAY = Number(param)
 			mod.command.message('delay set to <font color="#F0E442">' + TEABAGGING_DELAY + '</font>.')
 		}
-		else mod.command.message('Commands:<br>'
-								+ ' "tbag" (enable/disable Teabagger),<br>'
+		else mod.command.message('Commands:\n'
+								+ ' "tbag" (enable/disable Teabagger),\n'
 								+ ' "tbag [x]" (change teabagging delay to x, e.g. "tbag 100")'
 		)
 	})
