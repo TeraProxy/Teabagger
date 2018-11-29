@@ -1,9 +1,9 @@
 {
 	"files": {
 		"LICENSE": "589ed823e9a84c56feb95ac58e7cf384626b9cbf4fda2a907bc36e103de1bad2",
-		"README.md": "30a88bb63f9e33ec55678fb669545d380a7e2b59fc1904a02dc13268db311c6d",
-		"index.js": "04d23489d24ba7c2d2528abe165792a752eece8d90dc919b58c702cc3e400fc4",
-		"module.json": "459314f811c3d7c9e94a13fd022a14bb163b5bd4ba60397f15233d8a3bd5eab9"
+		"README.md": "d518aeb0ae3b4886f7043e5ed8e13aab80c2076340441142d31da2cdbb6e688b",
+		"index.js": "220c1e6bad5e0ec3a160f1ff563be57d28268878ebeae1352977f8ab1f86004c",
+		"module.json": "4abaf73e156512994ca95f0eaae50e1d9ef56ec05b7804d192f37c0463360d34"
 	},
 	"defs": {
 		"C_PLAYER_LOCATION": "raw",

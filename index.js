@@ -1,4 +1,4 @@
-// Version 1.2.5
+// Version 1.2.6
 
 'use strict'
 
@@ -8,7 +8,8 @@ module.exports = function teabagger(mod) {
 		sitting = false,
 		enabled = false,
 		teabagging = false,
-		TEABAGGING_DELAY = 60	// Teabagging delay in ms
+		TEABAGGING_DELAY = 60,	// Teabagging delay in ms
+		niceName = mod.proxyAuthor !== 'caali' ? '[Tbag] ' : ''
 
 	// ############# //
 	// ### Hooks ### //
@@ -59,12 +60,12 @@ module.exports = function teabagger(mod) {
 	mod.command.add('tbag', (param) => {
 		if(param == null) {
 			enabled = !enabled
-			mod.command.message((enabled ? '<font color="#56B4E9">enabled</font>' : '<font color="#E69F00">disabled</font>'))
-			console.log('[Teabagger] ' + (enabled ? 'enabled' : 'disabled'))
+			mod.command.message(niceName + 'Teabagger ' + (enabled ? '<font color="#56B4E9">enabled</font>' : '<font color="#E69F00">disabled</font>'))
+			console.log('Teabagger ' + (enabled ? 'enabled' : 'disabled'))
 		}
 		else if(param != null) {
 			TEABAGGING_DELAY = Number(param)
-			mod.command.message('delay set to <font color="#F0E442">' + TEABAGGING_DELAY + '</font>.')
+			mod.command.message(niceName + 'Delay set to <font color="#F0E442">' + TEABAGGING_DELAY + '</font>.')
 		}
 		else mod.command.message('Commands:\n'
 								+ ' "tbag" (enable/disable Teabagger),\n'
