@@ -1,8 +1,16 @@
 {
     "disableAutoUpdate": false,
+    "name": "Teabagger",
+    "author": "TeraProxy",
+    "description": "A tera-proxy module that lets you teabag people. Why bm?",
+    "version": "1.2.5",
+    "donationUrl": "https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=A3KBZUCSEQ5RJ",
     "options": {
         "niceName": "Tbag"
     },
     "servers": ["https://raw.githubusercontent.com/TeraProxy/Teabagger/master/"],
-    "supportUrl": "https://github.com/TeraProxy/Teabagger/issues"
+    "supportUrl": "https://github.com/TeraProxy/Teabagger/issues",
+    "dependencies": {
+        "tera-game-state": "https://raw.githubusercontent.com/caali-hackerman/tera-game-state/master/module.json"
+    }
 }
