@@ -3,7 +3,7 @@ Should work on all regions as long as the opcodes are mapped. Works on Caali's a
 
 ##### :heavy_exclamation_mark: Installation :heavy_exclamation_mark:
 1) Download Teabagger: https://github.com/TeraProxy/Teabagger/archive/master.zip
-2) Extract the contents of the zip file into "\tera-proxy\bin\node_modules\"
+2) Extract the contents of the zip file into "\tera-proxy\mods\"
 3) Done! (the module will auto-update on Caali's proxy when a new version is released)
   
 Users of Pinkie's proxy also need to install tera-game-state: https://github.com/caali-hackerman/tera-game-state/archive/master.zip  
@@ -20,8 +20,8 @@ While in game, open a proxy chat session by typing "/proxy" or "/8" in chat and 
 This serves as the script's command interface.  
 The following commands are supported:  
   
-* tbag - enable/disable Teabagger  
-* tbag [x] - change teabagging delay to x, e.g. "tbag 100"  
+* **tbag** - enable/disable Teabagger  
+* **tbag [x]** - change teabagging delay to x, e.g. "tbag 100"  
   
 Any other input, starting with "tbag", will return a summary of above commands in the chat.
 
